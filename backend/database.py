@@ -16,13 +16,19 @@ if not DATABASE_URL:
         f"DATABASE_URL is missing. Check: {BASE_DIR / '.env'}"
     )
 
-engine = create_engine(DATABASE_URL)
-
-SessionLocal = sessionmaker(
-    bind=engine,
-    autoflush=False,
-    expire_on_commit=False,
+# Use the installed psycopg2 driver
+DATABASE_URL = DATABASE_URL.replace(
+    "postgresql+psycopg://",
+    "postgresql+psycopg2://",
+    1,
 )
 
-class Base(DeclarativeBase):
-    pass
+# Also handle Render URLs using the default PostgreSQL scheme
+if DATABASE_URL.startswith("postgresql://"):
+    DATABASE_URL = DATABASE_URL.replace(
+        "postgresql://",
+        "postgresql+psycopg2://",
+        1,
+    )
+
+engine = create_engine(DATABASE_URL)
