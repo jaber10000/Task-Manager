@@ -1,4 +1,4 @@
-export const API_URL = import.meta.env.VITE_API_URL || "http://localhost:8000";
+const API_URL = "https://task-manager-api-9vhl.onrender.com";
 
 const TOKEN_KEY = "tm_token";
 
