@@ -26,6 +26,7 @@ app = FastAPI(
 app.add_middleware(
     CORSMiddleware,
     allow_origins=[
+        "https://task-manager-kappa-eight-21.vercel.app",
         "https://task-manager-paragon-cfb5.vercel.app",
     ],
     allow_credentials=True,
